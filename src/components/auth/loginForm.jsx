@@ -11,10 +11,11 @@ import {
   Text,
   Link
 } from '@chakra-ui/react'
-import { Link as ReachLink } from 'react-router-dom'
+import { Link as ReachLink, useNavigate } from 'react-router-dom'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import InputError from './inputError'
+import { loginUser } from '../../services/publicApiServices'
 
 const loginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Email is required'),
@@ -22,12 +23,20 @@ const loginSchema = Yup.object().shape({
 })
 
 function LoginForm () {
+  const navigate = useNavigate()
+
   const handleLogin = (values, { setSubmitting, resetForm }) => {
-    setTimeout(() => {
-      console.log(values)
-      setSubmitting(false)
-      resetForm()
-    }, 400)
+    loginUser(values)
+      .then(res => {
+        if (res) {
+          const { token } = res.data
+          localStorage.setItem('online-notes', token)
+          resetForm()
+          navigate('/', { replace: true })
+        }
+        setSubmitting(false)
+      })
+      .catch(error => console.log(error))
   }
 
   return (

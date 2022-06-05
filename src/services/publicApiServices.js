@@ -12,3 +12,10 @@ export const registerUser = payload => {
     .then(res => res)
     .catch(error => console.log(error))
 }
+
+export const loginUser = payload => {
+  return axiosInstance
+    .post('auth/login', payload)
+    .then(res => res)
+    .catch(error => console.log(error))
+}
