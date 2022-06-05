@@ -11,10 +11,11 @@ import {
   Link,
   Heading
 } from '@chakra-ui/react'
-import { Link as ReachLink } from 'react-router-dom'
+import { Link as ReachLink, useNavigate } from 'react-router-dom'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import InputError from './inputError'
+import { registerUser } from '../../services/publicApiServices'
 
 const registerSchema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
@@ -23,12 +24,19 @@ const registerSchema = Yup.object().shape({
 })
 
 function RegisterForm () {
+  const navigate = useNavigate()
+
   const handleRegister = (values, { setSubmitting, resetForm }) => {
-    setTimeout(() => {
-      console.log(values)
-      setSubmitting(false)
-      resetForm()
-    }, 400)
+    registerUser(values)
+      .then(res => {
+        if (res) {
+          console.log(res.data)
+          resetForm()
+          navigate('/auth/login', { replace: true })
+        }
+        setSubmitting(false)
+      })
+      .catch(error => console.log(error))
   }
 
   return (
