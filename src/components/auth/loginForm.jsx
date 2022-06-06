@@ -11,7 +11,7 @@ import {
   Text,
   Link
 } from '@chakra-ui/react'
-import { Link as ReachLink, useNavigate } from 'react-router-dom'
+import { Link as ReachLink, useNavigate, Navigate } from 'react-router-dom'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import InputError from './inputError'
@@ -24,6 +24,7 @@ const loginSchema = Yup.object().shape({
 
 function LoginForm () {
   const navigate = useNavigate()
+  const token = localStorage.getItem('online-notes')
 
   const handleLogin = (values, { setSubmitting, resetForm }) => {
     loginUser(values)
@@ -37,6 +38,13 @@ function LoginForm () {
         setSubmitting(false)
       })
       .catch(error => console.log(error))
+  }
+
+  // Si estamos autenticados, denegamos el acceso al login
+  if (token) {
+    return (
+      <Navigate to='/' />
+    )
   }
 
   return (

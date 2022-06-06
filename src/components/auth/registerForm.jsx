@@ -11,7 +11,7 @@ import {
   Link,
   Heading
 } from '@chakra-ui/react'
-import { Link as ReachLink, useNavigate } from 'react-router-dom'
+import { Link as ReachLink, useNavigate, Navigate } from 'react-router-dom'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import InputError from './inputError'
@@ -25,6 +25,7 @@ const registerSchema = Yup.object().shape({
 
 function RegisterForm () {
   const navigate = useNavigate()
+  const token = localStorage.getItem('online-notes')
 
   const handleRegister = (values, { setSubmitting, resetForm }) => {
     registerUser(values)
@@ -38,7 +39,12 @@ function RegisterForm () {
       })
       .catch(error => console.log(error))
   }
-
+  // Si estamos autenticados, denegamos el acceso al registro
+  if (token) {
+    return (
+      <Navigate to='/' />
+    )
+  }
   return (
     <Stack
       height='90vh'
