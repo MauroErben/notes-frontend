@@ -2,8 +2,11 @@ import { VStack, Box, Heading, Text, HStack, IconButton } from '@chakra-ui/react
 import React from 'react'
 import { FaEdit } from 'react-icons/fa'
 import { MdDelete } from 'react-icons/md'
+import { useNavigate } from 'react-router-dom'
 
 function NotesItems ({ listaNotas, handleDelete }) {
+  const navigate = useNavigate()
+
   const deleteNote = (id) => {
     handleDelete(id)
   }
@@ -34,7 +37,7 @@ function NotesItems ({ listaNotas, handleDelete }) {
                 <HStack
                   spacing={2}
                 >
-                  <IconButton aria-label='editar nota' colorScheme='blue' icon={<FaEdit />} />
+                  <IconButton onClick={() => navigate('/create', { state: items })} aria-label='editar nota' colorScheme='blue' icon={<FaEdit />} />
                   <IconButton onClick={() => deleteNote(items._id)} aria-label='eliminar nota' colorScheme='red' icon={<MdDelete />} />
                 </HStack>
               </HStack>

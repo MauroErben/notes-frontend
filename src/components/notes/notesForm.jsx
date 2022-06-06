@@ -13,8 +13,8 @@ import {
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import InputError from '../auth/inputError'
-import { useNavigate } from 'react-router-dom'
-import { createNote } from '../../services/privateApiServices'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { createNote, updateNote } from '../../services/privateApiServices'
 
 const notesSchema = Yup.object().shape({
   title: Yup.string().required('Title is required')
@@ -22,17 +22,37 @@ const notesSchema = Yup.object().shape({
 
 function NotesForm () {
   const navigate = useNavigate()
+  const location = useLocation()
 
-  const handleNewNote = (values, { setSubmitting, resetForm }) => {
+  const crear = (values) => {
     createNote(values)
       .then(res => {
         if (res) {
           alert(res.data.message)
-          resetForm()
         }
-        setSubmitting(false)
       })
       .catch(error => console.log(error))
+  }
+
+  const actualizar = (id, values) => {
+    updateNote(id, values)
+      .then(res => {
+        if (res) {
+          alert(res.data.message)
+          values = null
+        }
+      })
+      .catch(error => console.log(error))
+  }
+
+  const handleNewNote = (values, { setSubmitting, resetForm }) => {
+    if (location.state) {
+      actualizar(location.state._id, values)
+    } else {
+      crear(values)
+    }
+    resetForm()
+    setSubmitting(false)
   }
 
   return (
@@ -62,7 +82,7 @@ function NotesForm () {
               textAlign='center'
             >
               <Heading as='h1' size='lg'>ONLINE NOTES</Heading>
-              <Heading as='h3' size='sm'>Nueva nota</Heading>
+              <Heading as='h3' size='sm'>{location.state ? 'Actualizar' : 'Nueva nota'}</Heading>
             </Box>
 
             <VStack
@@ -102,7 +122,7 @@ function NotesForm () {
                 disabled={isSubmitting}
                 onClick={handleSubmit}
               >
-                Crear nota
+                {location.state ? 'Actualizar nota' : 'Crear nota'}
               </Button>
               <Button
                 colorScheme='red'

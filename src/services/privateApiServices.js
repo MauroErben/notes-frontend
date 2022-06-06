@@ -34,3 +34,10 @@ export const deleteNote = id => {
     .then(res => res)
     .catch(error => console.log(error))
 }
+
+export const updateNote = (id, payload) => {
+  return axiosInstance
+    .patch(`/notes/${id}`, payload, getAuthorization())
+    .then(res => res)
+    .catch(error => console.log(error))
+}
