@@ -20,3 +20,10 @@ export const createNote = payload => {
     .then(res => res)
     .catch(error => console.log(error))
 }
+
+export const getAllNotes = () => {
+  return axiosInstance
+    .get('/notes', getAuthorization())
+    .then(res => res)
+    .catch(error => console.log(error))
+}
