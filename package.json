@@ -45,7 +45,8 @@
       "react/prop-types": "off"
     },
     "globals": {
-      "localStorage": true
+      "localStorage": true,
+      "alert": true
     }
   }
 }
