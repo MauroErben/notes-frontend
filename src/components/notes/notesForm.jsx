@@ -14,6 +14,7 @@ import { Formik } from 'formik'
 import * as Yup from 'yup'
 import InputError from '../auth/inputError'
 import { useNavigate } from 'react-router-dom'
+import { createNote } from '../../services/privateApiServices'
 
 const notesSchema = Yup.object().shape({
   title: Yup.string().required('Title is required')
@@ -23,11 +24,15 @@ function NotesForm () {
   const navigate = useNavigate()
 
   const handleNewNote = (values, { setSubmitting, resetForm }) => {
-    setTimeout(() => {
-      console.log(values)
-      setSubmitting(false)
-      resetForm()
-    }, 400)
+    createNote(values)
+      .then(res => {
+        if (res) {
+          alert(res.data.message)
+          resetForm()
+        }
+        setSubmitting(false)
+      })
+      .catch(error => console.log(error))
   }
 
   return (
@@ -103,7 +108,7 @@ function NotesForm () {
                 colorScheme='red'
                 onClick={() => navigate('/')}
               >
-                Cancelar
+                Volver
               </Button>
             </VStack>
           </VStack>
