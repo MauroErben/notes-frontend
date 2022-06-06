@@ -35,7 +35,7 @@ function Notes () {
     <Box>
       <HStack
         justify='space-between'
-        padding={[2, 4, 6, 8]}
+        py={[2, 4, 6, 8]}
       >
         <Button
           colorScheme='blue'
