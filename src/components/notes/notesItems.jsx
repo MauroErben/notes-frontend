@@ -3,7 +3,11 @@ import React from 'react'
 import { FaEdit } from 'react-icons/fa'
 import { MdDelete } from 'react-icons/md'
 
-function NotesItems ({ listaNotas }) {
+function NotesItems ({ listaNotas, handleDelete }) {
+  const deleteNote = (id) => {
+    handleDelete(id)
+  }
+
   if (listaNotas.length > 0) {
     return (
       <VStack
@@ -31,7 +35,7 @@ function NotesItems ({ listaNotas }) {
                   spacing={2}
                 >
                   <IconButton aria-label='editar nota' colorScheme='blue' icon={<FaEdit />} />
-                  <IconButton aria-label='eliminar nota' colorScheme='red' icon={<MdDelete />} />
+                  <IconButton onClick={() => deleteNote(items._id)} aria-label='eliminar nota' colorScheme='red' icon={<MdDelete />} />
                 </HStack>
               </HStack>
             </Box>

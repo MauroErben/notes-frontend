@@ -27,3 +27,10 @@ export const getAllNotes = () => {
     .then(res => res)
     .catch(error => console.log(error))
 }
+
+export const deleteNote = id => {
+  return axiosInstance
+    .delete(`/notes/${id}`, getAuthorization())
+    .then(res => res)
+    .catch(error => console.log(error))
+}

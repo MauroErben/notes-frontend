@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import NotesItems from './notesItems'
 import { Box, HStack, Select, Button } from '@chakra-ui/react'
-import { getAllNotes } from '../../services/privateApiServices'
+import { getAllNotes, deleteNote } from '../../services/privateApiServices'
 import { useNavigate } from 'react-router-dom'
 import { MdOutlineNoteAlt } from 'react-icons/md'
 
@@ -12,6 +12,15 @@ function Notes () {
 
   const handleChangeValue = (e) => {
     setOrderValue(e.target.value)
+  }
+
+  const handleDelete = (id) => {
+    const result = confirm('¿Estas seguro que quires eliminar esta nota?')
+    if (result) {
+      deleteNote(id)
+        .then(res => console.log(res.data))
+        .catch(error => console.log(error))
+    }
   }
 
   const orderArray = array => {
@@ -29,7 +38,7 @@ function Notes () {
         .catch(error => console.log(error))
     }
     getNotes()
-  }, [orderValue])
+  }, [orderValue, handleDelete])
 
   return (
     <Box>
@@ -53,7 +62,7 @@ function Notes () {
           <option>Fecha</option>
         </Select>
       </HStack>
-      <NotesItems listaNotas={notes} />
+      <NotesItems listaNotas={notes} handleDelete={handleDelete} />
     </Box>
   )
 }
