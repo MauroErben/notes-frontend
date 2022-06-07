@@ -1,17 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import NotesItems from './notesItems'
-import { Box, HStack, Select, Button } from '@chakra-ui/react'
+import { VStack, HStack, Select, Button } from '@chakra-ui/react'
 import { getAllNotes, deleteNote } from '../../services/privateApiServices'
 import { useNavigate } from 'react-router-dom'
 import { MdOutlineNoteAlt } from 'react-icons/md'
+import Spinner from '../spinner'
 
 function Notes () {
   const [notes, setNotes] = useState([])
-  const [orderValue, setOrderValue] = useState('Nombre')
+  const [loading, setLoading] = useState(false)
+  const [orderValue, setOrderValue] = useState('Fecha')
   const navigate = useNavigate()
 
   const handleChangeValue = (e) => {
-    setOrderValue(e.target.value)
+    ordenarArray(e.target.value)
+  }
+
+  const ordenarArray = value => {
+    setOrderValue(value)
+    if (value === 'Nombre') {
+      return notes.sort((a, b) => a.title.localeCompare(b.title))
+    } else if (value === 'Fecha') {
+      return notes.sort((a, b) => a.createdAt.localeCompare(b.createdAt))
+    }
   }
 
   const handleDelete = (id) => {
@@ -23,26 +34,23 @@ function Notes () {
     }
   }
 
-  const orderArray = array => {
-    if (orderValue === 'Nombre') {
-      return array.sort((a, b) => a.title.localeCompare(b.title))
-    } else if (orderValue === 'Fecha') {
-      return array.sort((a, b) => a.createdAt.localeCompare(b.createdAt))
-    }
-  }
-
   useEffect(() => {
+    setLoading(true)
     const getNotes = () => {
       getAllNotes()
-        .then(res => setNotes(orderArray(res.data.notas)))
+        .then(res => {
+          setNotes(res.data.notas)
+          setLoading(false)
+        })
         .catch(error => console.log(error))
     }
     getNotes()
-  }, [orderValue, handleDelete])
+  }, [])
 
   return (
-    <Box>
+    <VStack>
       <HStack
+        w='full'
         justify='space-between'
         py={[2, 4, 6, 8]}
       >
@@ -62,8 +70,8 @@ function Notes () {
           <option>Fecha</option>
         </Select>
       </HStack>
-      <NotesItems listaNotas={notes} handleDelete={handleDelete} />
-    </Box>
+      {loading ? <Spinner color='#3182ce' size={40} /> : <NotesItems listaNotas={notes} handleDelete={handleDelete} />}
+    </VStack>
   )
 }
 export default Notes
