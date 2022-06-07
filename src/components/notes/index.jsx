@@ -26,26 +26,28 @@ function Notes () {
     }
   }
 
+  const getNotes = () => {
+    setLoading(true)
+    getAllNotes()
+      .then(res => {
+        setNotes(res.data.notas)
+        setLoading(false)
+      })
+      .catch(error => console.log(error))
+  }
+
   const handleDelete = (id) => {
     showQuestionAlert('¿Estas seguro que quieres eliminar esta nota?', () => {
       deleteNote(id)
         .then(res => {
           showSuccessAlert(res.data.message)
+          getNotes()
         })
         .catch(error => console.log(error))
     })
   }
 
   useEffect(() => {
-    setLoading(true)
-    const getNotes = () => {
-      getAllNotes()
-        .then(res => {
-          setNotes(res.data.notas)
-          setLoading(false)
-        })
-        .catch(error => console.log(error))
-    }
     getNotes()
   }, [])
 
