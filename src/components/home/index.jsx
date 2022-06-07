@@ -1,5 +1,5 @@
 import React from 'react'
-import { VStack, Container, Heading, Text } from '@chakra-ui/react'
+import { VStack, Container } from '@chakra-ui/react'
 import { Navigate } from 'react-router-dom'
 import Notes from '../notes'
 
@@ -22,8 +22,6 @@ function Home () {
         padding={[2, 4, 6, 8]}
         textAlign='center'
       >
-        <Heading color='blue.500'>TUS NOTAS</Heading>
-        <Text>Aqui veras todas tus notas y podras administrarlas</Text>
         <Notes />
       </VStack>
     </Container>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import NotesItems from './notesItems'
-import { VStack, HStack, Select, Button } from '@chakra-ui/react'
+import { VStack, HStack, Select, Button, Heading, Text } from '@chakra-ui/react'
 import { getAllNotes, deleteNote } from '../../services/privateApiServices'
 import { useNavigate } from 'react-router-dom'
 import { MdOutlineNoteAlt } from 'react-icons/md'
@@ -53,6 +53,8 @@ function Notes () {
 
   return (
     <VStack>
+      <Heading color='blue.500'>TUS NOTAS</Heading>
+      <Text>Aqui veras todas tus notas y podras administrarlas</Text>
       <HStack
         w='full'
         justify='space-between'
