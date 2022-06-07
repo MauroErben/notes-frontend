@@ -22,7 +22,7 @@ function Notes () {
     if (value === 'Nombre') {
       return notes.sort((a, b) => a.title.localeCompare(b.title))
     } else if (value === 'Fecha') {
-      return notes.sort((a, b) => a.createdAt.localeCompare(b.createdAt))
+      return notes.sort((a, b) => b.createdAt.localeCompare(a.createdAt))
     }
   }
 
