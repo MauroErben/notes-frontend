@@ -70,7 +70,7 @@ function Notes () {
           <option>Fecha</option>
         </Select>
       </HStack>
-      {loading ? <Spinner color='#3182ce' size={40} /> : <NotesItems listaNotas={notes} handleDelete={handleDelete} />}
+      {loading ? <Spinner size={40} /> : <NotesItems listaNotas={notes} handleDelete={handleDelete} />}
     </VStack>
   )
 }

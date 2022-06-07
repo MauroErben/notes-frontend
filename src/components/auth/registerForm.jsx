@@ -16,6 +16,7 @@ import { Formik } from 'formik'
 import * as Yup from 'yup'
 import InputError from './inputError'
 import { registerUser } from '../../services/publicApiServices'
+import Spinner from '../spinner'
 
 const registerSchema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
@@ -129,6 +130,7 @@ function RegisterForm () {
               >
                 Crear cuenta
               </Button>
+              {isSubmitting && <Spinner size={40} />}
               <Text>¿Ya tienes una cuenta? <Link color='blue.300' as={ReachLink} to='/auth/login'>Inicia sesión</Link></Text>
             </VStack>
           </VStack>

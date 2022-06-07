@@ -16,6 +16,7 @@ import { Formik } from 'formik'
 import * as Yup from 'yup'
 import InputError from './inputError'
 import { loginUser } from '../../services/publicApiServices'
+import Spinner from '../spinner'
 
 const loginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Email is required'),
@@ -117,6 +118,7 @@ function LoginForm () {
               >
                 Ingresar
               </Button>
+              {isSubmitting && <Spinner size={40} />}
               <Text>¿No tienes una cuenta? <Link color='blue.300' as={ReachLink} to='/auth/register'>Registrate</Link></Text>
             </VStack>
           </VStack>
