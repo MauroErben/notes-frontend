@@ -20,6 +20,8 @@ function Home () {
         backgroundColor='gray.300'
         spacing={4}
         padding={[2, 4, 6, 8]}
+        margin={[2, 4, 6, 8]}
+        borderRadius='md'
         textAlign='center'
       >
         <Notes />
