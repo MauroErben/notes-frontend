@@ -15,6 +15,7 @@ import * as Yup from 'yup'
 import InputError from '../auth/inputError'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { createNote, updateNote } from '../../services/privateApiServices'
+import { showSuccessAlert } from '../../utils/alerts'
 
 const notesSchema = Yup.object().shape({
   title: Yup.string().required('Title is required')
@@ -28,7 +29,7 @@ function NotesForm () {
     createNote(values)
       .then(res => {
         if (res) {
-          alert(res.data.message)
+          showSuccessAlert(res.data.message)
         }
       })
       .catch(error => console.log(error))
@@ -38,8 +39,7 @@ function NotesForm () {
     updateNote(id, values)
       .then(res => {
         if (res) {
-          alert(res.data.message)
-          values = null
+          showSuccessAlert(res.data.message)
         }
       })
       .catch(error => console.log(error))

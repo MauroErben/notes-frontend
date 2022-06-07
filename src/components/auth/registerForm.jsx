@@ -17,6 +17,7 @@ import * as Yup from 'yup'
 import InputError from './inputError'
 import { registerUser } from '../../services/publicApiServices'
 import Spinner from '../spinner'
+import { showSuccessAlert } from '../../utils/alerts'
 
 const registerSchema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
@@ -32,9 +33,9 @@ function RegisterForm () {
     registerUser(values)
       .then(res => {
         if (res) {
-          console.log(res.data)
           resetForm()
           navigate('/auth/login', { replace: true })
+          showSuccessAlert('Usuario registrado, inicia sesion en tu cuenta')
         }
         setSubmitting(false)
       })
@@ -124,7 +125,6 @@ function RegisterForm () {
               {/* FOOTER */}
               <Button
                 onClick={handleSubmit}
-                type='submit'
                 colorScheme='blue'
                 disabled={isSubmitting}
               >

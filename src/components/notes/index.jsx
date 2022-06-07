@@ -5,6 +5,7 @@ import { getAllNotes, deleteNote } from '../../services/privateApiServices'
 import { useNavigate } from 'react-router-dom'
 import { MdOutlineNoteAlt } from 'react-icons/md'
 import Spinner from '../spinner'
+import { showQuestionAlert, showSuccessAlert } from '../../utils/alerts'
 
 function Notes () {
   const [notes, setNotes] = useState([])
@@ -26,12 +27,13 @@ function Notes () {
   }
 
   const handleDelete = (id) => {
-    const result = confirm('¿Estas seguro que quires eliminar esta nota?')
-    if (result) {
+    showQuestionAlert('¿Estas seguro que quieres eliminar esta nota?', () => {
       deleteNote(id)
-        .then(res => console.log(res.data))
+        .then(res => {
+          showSuccessAlert(res.data.message)
+        })
         .catch(error => console.log(error))
-    }
+    })
   }
 
   useEffect(() => {
