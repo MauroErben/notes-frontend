@@ -58,7 +58,7 @@ function Notes () {
       <HStack
         w='full'
         justify='space-between'
-        py={[2, 4, 6, 8]}
+        p={[2, 4, 6, 8]}
       >
         <Button
           colorScheme='blue'
