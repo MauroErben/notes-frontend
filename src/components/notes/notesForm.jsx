@@ -57,7 +57,6 @@ function NotesForm () {
 
   return (
     <Stack
-      height='90vh'
       justify='center'
       align='center'
     >

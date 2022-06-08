@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import NotesItems from './notesItems'
-import { VStack, HStack, Select, Button, Heading, Text } from '@chakra-ui/react'
+import { VStack, HStack, Select, Button, Heading, Menu, MenuButton, MenuList, MenuItem, IconButton } from '@chakra-ui/react'
 import { getAllNotes, deleteNote } from '../../services/privateApiServices'
 import { useNavigate } from 'react-router-dom'
 import { MdOutlineNoteAlt } from 'react-icons/md'
 import Spinner from '../spinner'
 import { showQuestionAlert, showSuccessAlert } from '../../utils/alerts'
+import { GiHamburgerMenu } from 'react-icons/gi'
 
 function Notes () {
   const [notes, setNotes] = useState([])
@@ -52,13 +53,32 @@ function Notes () {
   }, [])
 
   return (
-    <VStack>
-      <Heading color='blue.500'>TUS NOTAS</Heading>
-      <Text>Aqui veras todas tus notas y podras administrarlas</Text>
+    <VStack
+      width='full'
+      padding={[2, 4, 6, 8]}
+      spacing={4}
+    >
       <HStack
-        w='full'
+        width='full'
         justify='space-between'
-        p={[2, 4, 6, 8]}
+      >
+        <Heading size='lg' color='blue.500'>TUS NOTAS</Heading>
+        <Menu>
+          <MenuButton
+            as={IconButton}
+            aria-label='Options'
+            variant='outline'
+            transition='all 0.2s'
+            icon={<GiHamburgerMenu />}
+          />
+          <MenuList>
+            <MenuItem>Cerrar sesión</MenuItem>
+          </MenuList>
+        </Menu>
+      </HStack>
+      <HStack
+        width='full'
+        justify='space-between'
       >
         <Button
           colorScheme='blue'

@@ -14,13 +14,15 @@ function NotesItems ({ listaNotas, handleDelete }) {
   if (listaNotas.length > 0) {
     return (
       <VStack
+        width='full'
         spacing={4}
+        py={[2, 4, 6, 8]}
         textAlign='start'
       >
         {listaNotas.map(items => (
           <React.Fragment key={items._id}>
             <Box
-              width={[300, 400, 600]}
+              width='full'
               padding={[2, 4, 6, 8]}
               borderRadius={4}
               boxShadow='lg'

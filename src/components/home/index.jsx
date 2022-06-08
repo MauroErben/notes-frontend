@@ -1,5 +1,5 @@
 import React from 'react'
-import { VStack, Container } from '@chakra-ui/react'
+import { Box, Container } from '@chakra-ui/react'
 import { Navigate } from 'react-router-dom'
 import Notes from '../notes'
 
@@ -7,25 +7,17 @@ function Home () {
   const token = localStorage.getItem('online-notes')
 
   if (!token) {
-    return (<Navigate to='/auth/login' replace />)
+    return (<Navigate to='/welcome' replace />)
   }
 
   return (
     <Container
       maxW='container.md'
-      height='90vh'
-      // padding={[2, 4, 6, 8]}
+      boxShadow={['sm', 'md', 'lg', '2xl']}
     >
-      <VStack
-        backgroundColor='gray.300'
-        spacing={4}
-        padding={[2, 4, 6, 8]}
-        margin={[2, 4, 6, 8]}
-        borderRadius='md'
-        textAlign='center'
-      >
+      <Box>
         <Notes />
-      </VStack>
+      </Box>
     </Container>
   )
 }
