@@ -15,7 +15,7 @@ import * as Yup from 'yup'
 import InputError from '../auth/inputError'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { createNote, updateNote } from '../../services/privateApiServices'
-import { showSuccessAlert } from '../../utils/alerts'
+import { showErrorAlert, showSuccessAlert } from '../../utils/alerts'
 
 const notesSchema = Yup.object().shape({
   title: Yup.string().required('Title is required')
@@ -28,9 +28,11 @@ function NotesForm () {
   const crear = (values) => {
     createNote(values)
       .then(res => {
-        if (res) {
+        if (res?.status === 200) {
           showSuccessAlert(res.data.message)
           navigate('/')
+        } else {
+          showErrorAlert('Ocurrio un error al crear la nota')
         }
       })
       .catch(error => console.log(error))
@@ -39,9 +41,11 @@ function NotesForm () {
   const actualizar = (id, values) => {
     updateNote(id, values)
       .then(res => {
-        if (res) {
+        if (res?.status === 200) {
           showSuccessAlert(res.data.message)
           navigate('/')
+        } else {
+          showErrorAlert('Ocurrio un error al actualizar la nota')
         }
       })
       .catch(error => console.log(error))

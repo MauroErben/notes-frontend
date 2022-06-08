@@ -5,7 +5,7 @@ import { getAllNotes, deleteNote } from '../../services/privateApiServices'
 import { useNavigate } from 'react-router-dom'
 import { MdOutlineNoteAlt } from 'react-icons/md'
 import Spinner from '../spinner'
-import { showQuestionAlert, showSuccessAlert } from '../../utils/alerts'
+import { showQuestionAlert, showSuccessAlert, showErrorAlert } from '../../utils/alerts'
 import { GiHamburgerMenu } from 'react-icons/gi'
 
 function Notes () {
@@ -31,8 +31,12 @@ function Notes () {
     setLoading(true)
     getAllNotes()
       .then(res => {
-        setNotes(res.data.notas)
-        setLoading(false)
+        if (res?.status === 200) {
+          setNotes(res.data.notas)
+          setLoading(false)
+        } else {
+          showErrorAlert('Ocurrio un error al obtener las notas')
+        }
       })
       .catch(error => console.log(error))
   }
@@ -41,8 +45,12 @@ function Notes () {
     showQuestionAlert('¿Estas seguro que quieres eliminar esta nota?', () => {
       deleteNote(id)
         .then(res => {
-          showSuccessAlert(res.data.message)
-          getNotes()
+          if (res?.status === 200) {
+            showSuccessAlert(res.data.message)
+            getNotes()
+          } else {
+            showErrorAlert('Ocurrio un error al eliminar la nota')
+          }
         })
         .catch(error => console.log(error))
     })
