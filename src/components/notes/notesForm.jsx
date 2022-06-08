@@ -30,6 +30,7 @@ function NotesForm () {
       .then(res => {
         if (res) {
           showSuccessAlert(res.data.message)
+          navigate('/')
         }
       })
       .catch(error => console.log(error))
@@ -40,6 +41,7 @@ function NotesForm () {
       .then(res => {
         if (res) {
           showSuccessAlert(res.data.message)
+          navigate('/')
         }
       })
       .catch(error => console.log(error))
