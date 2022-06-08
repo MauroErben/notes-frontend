@@ -48,6 +48,11 @@ function Notes () {
     })
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem('online-notes')
+    navigate('/welcome', { replace: true })
+  }
+
   useEffect(() => {
     getNotes()
   }, [])
@@ -72,7 +77,7 @@ function Notes () {
             icon={<GiHamburgerMenu />}
           />
           <MenuList>
-            <MenuItem>Cerrar sesión</MenuItem>
+            <MenuItem onClick={handleLogout}>Cerrar sesión</MenuItem>
           </MenuList>
         </Menu>
       </HStack>
