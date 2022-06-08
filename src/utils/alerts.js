@@ -8,6 +8,14 @@ export const showSuccessAlert = (texto) => {
   })
 }
 
+export const showErrorAlert = (texto) => {
+  Swal.fire({
+    icon: 'error',
+    title: 'Error',
+    text: texto
+  })
+}
+
 export const showQuestionAlert = (titulo, confirmCallback) => {
   Swal.fire({
     icon: 'question',
