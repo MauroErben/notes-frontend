@@ -11,7 +11,7 @@ import { GiHamburgerMenu } from 'react-icons/gi'
 function Notes () {
   const [notes, setNotes] = useState([])
   const [loading, setLoading] = useState(false)
-  const [orderValue, setOrderValue] = useState('Fecha')
+  const [orderValue, setOrderValue] = useState('')
   const navigate = useNavigate()
 
   const handleChangeValue = (e) => {
@@ -20,10 +20,15 @@ function Notes () {
 
   const ordenarArray = value => {
     setOrderValue(value)
-    if (value === 'Nombre') {
-      return notes.sort((a, b) => a.title.localeCompare(b.title))
-    } else if (value === 'Fecha') {
-      return notes.sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+    switch (value) {
+      case 'Nombre':
+        return notes.sort((a, b) => a.title.localeCompare(b.title))
+
+      case 'Fecha':
+        return notes.sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+
+      default:
+        return notes
     }
   }
 
@@ -104,6 +109,7 @@ function Notes () {
           width='150px'
           value={orderValue}
           onChange={handleChangeValue}
+          placeholder='Ordenar por'
         >
           <option>Nombre</option>
           <option>Fecha</option>
