@@ -51,13 +51,12 @@ function NotesForm () {
       .catch(error => console.log(error))
   }
 
-  const handleNewNote = (values, { setSubmitting, resetForm }) => {
+  const handleNewNote = (values, { setSubmitting }) => {
     if (location.state) {
       actualizar(location.state._id, values)
     } else {
       crear(values)
     }
-    resetForm()
     setSubmitting(false)
   }
 
@@ -67,8 +66,7 @@ function NotesForm () {
       align='center'
     >
       <Formik
-        enableReinitialize
-        initialValues={{ title: '', note: '' }}
+        initialValues={{ title: location.state?.title || '', note: location.state?.note || '' }}
         validationSchema={notesSchema}
         onSubmit={handleNewNote}
       >
