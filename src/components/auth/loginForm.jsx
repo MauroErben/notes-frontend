@@ -50,6 +50,7 @@ function LoginForm () {
 
   return (
     <Stack
+      height='100vh'
       justify='center'
       align='center'
     >

@@ -49,6 +49,7 @@ function RegisterForm () {
   }
   return (
     <Stack
+      height='100vh'
       justify='center'
       align='center'
     >
