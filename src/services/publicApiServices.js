@@ -3,8 +3,7 @@ import axios from 'axios'
 import { showErrorAlert } from '../utils/alerts'
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
-  timeout: 4000
+  baseURL: import.meta.env.VITE_BASE_URL
 })
 
 export const registerUser = payload => {
